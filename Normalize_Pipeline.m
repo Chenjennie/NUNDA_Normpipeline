@@ -5,6 +5,8 @@ function Normalize_Pipeline(smri_directory,varargin)
 %native T1
 warning off all;
 try
+    tarfile=gunzip(strcat(smri_directory,'/*.gz'));
+    untar(tarfile,smri_directory);
     for x=1:size(varargin,2)
         cfolder=char(deblank(varargin(x)));
         cd(cfolder);
