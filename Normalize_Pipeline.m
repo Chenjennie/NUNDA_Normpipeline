@@ -40,10 +40,12 @@ try
                 seplocs=strfind(files(a,:),'-');
                 fnum=files(a,seplocs(end):end);
                 fname=sprintf('%s_04%d_%s%s',hdr{1,1}.PatientID,hdr{1,1}.SeriesNumber,strrep(hdr{1,1}.SeriesDescription,' ','_'),fnum);
+                fname=strrep(fname,'(','-');fname=strrep(fname,')','');
                 movefile(files(a,:),fullfile(cfolder,fname),'f');
             end
         else
             fname=sprintf('%s_04%d_%s.nii',hdr{1,1}.PatientID,hdr{1,1}.SeriesNumber,strrep(hdr{1,1}.SeriesDescription,' ','_'));
+            fname=strrep(fname,'(','-');fname=strrep(fname,')','');
             movefile(files,fullfile(cfolder,fname),'f');
         end
         
