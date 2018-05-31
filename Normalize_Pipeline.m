@@ -35,6 +35,9 @@ try
         spm_dicom_convertP50(hdr,'all','flat','nii');
         
         files=spm_select('FPList',cfolder,'.*.nii');
+        V=spm_vol(deblank(files(1,:)));
+        imreso=round(abs(diag(info.mat)));imreso=imreso(1:3);
+        
         if size(files,1)>1
             for a=1:size(files,1)
                 seplocs=strfind(files(a,:),'-');
@@ -43,7 +46,7 @@ try
                 fname=strrep(fname,'(','-');fname=strrep(fname,')','');
                 movefile(files(a,:),fullfile(cfolder,fname),'f');
             end
-        else
+        elseimreso=round(abs(diag(V.mat)));imreso=imreso(1:3);
             fname=sprintf('%s_04%d_%s.nii',hdr{1,1}.PatientID,hdr{1,1}.SeriesNumber,strrep(hdr{1,1}.SeriesDescription,' ','_'));
             fname=strrep(fname,'(','-');fname=strrep(fname,')','');
             movefile(files,fullfile(cfolder,fname),'f');
@@ -74,6 +77,14 @@ try
         files=spm_select('FPList',cfolder,'^wr.*.nii');
         for a=1:size(files,1)
             movefile(deblank(files(a,:)),outputfolder,'f');end
+            
+            if ~isempty(spm_select('FPList',smri_directory,'^wrp1.*nii$'))
+                [pth,nm,ext]=fileparts(spm_select('FPList',smri_directory,'^wrp1.*nii$'));
+                if ~isequal(ones(3,1),imreso)
+                spm_smooth(spm_select('FPList',smri_directory,'^wrp1.*nii$'),fullfile(outputfolder,['s',nm,ext]),imreso);
+                else
+                copyfile(spm_select('FPList',smri_directory,'^wrp1.*nii$'),outputfolder,'f');end
+            end
     end
     
 catch err
