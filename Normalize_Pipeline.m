@@ -81,7 +81,7 @@ try
             if ~isempty(spm_select('FPList',smri_directory,'^wrp1.*nii$'))
                 [pth,nm,ext]=fileparts(spm_select('FPList',smri_directory,'^wrp1.*nii$'));
                 if ~isequal(ones(3,1),imreso)
-                spm_smooth(spm_select('FPList',smri_directory,'^wrp1.*nii$'),fullfile(outputfolder,['s',nm,ext]),imreso);
+                spm_smooth(spm_select('FPList',smri_directory,'^wrp1.*nii$'),fullfile(outputfolder,['s',nm,ext]),imreso');
                 else
                 copyfile(spm_select('FPList',smri_directory,'^wrp1.*nii$'),outputfolder,'f');end
             end
