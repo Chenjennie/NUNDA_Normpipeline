@@ -46,7 +46,7 @@ try
                 fname=strrep(fname,'(','-');fname=strrep(fname,')','');
                 movefile(files(a,:),fullfile(cfolder,fname),'f');
             end
-        elseimreso=round(abs(diag(V.mat)));imreso=imreso(1:3);
+        else
             fname=sprintf('%s_04%d_%s.nii',hdr{1,1}.PatientID,hdr{1,1}.SeriesNumber,strrep(hdr{1,1}.SeriesDescription,' ','_'));
             fname=strrep(fname,'(','-');fname=strrep(fname,')','');
             movefile(files,fullfile(cfolder,fname),'f');
