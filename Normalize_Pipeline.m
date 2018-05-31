@@ -36,7 +36,7 @@ try
         
         files=spm_select('FPList',cfolder,'.*.nii');
         V=spm_vol(deblank(files(1,:)));
-        imreso=round(abs(diag(info.mat)));imreso=imreso(1:3);
+        imreso=round(abs(diag(V.mat)));imreso=imreso(1:3);
         
         if size(files,1)>1
             for a=1:size(files,1)
